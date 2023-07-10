@@ -1,10 +1,38 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Button, Text, View, NativeModules } from 'react-native';
+
+const { HelloKotlin } = NativeModules;
 
 export default function App() {
+
+  const handleOnPress = () => {
+    console.log('Press...');
+    HelloKotlin.sayHello("Module Kotlin  ", (err: any, message: any)=> {
+      if(err) return console.log(err);
+      console.log("message",  message);
+    })
+  }
+
+  const handleButton = () => {
+    console.log('Botão...');
+    HelloKotlin.sayHello("Funcionou...  ", (err: any, message: any)=> {
+      if(err) return console.log(err);
+      console.log("message",  message);
+    })
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <Text onPress={handleOnPress} >Esse modulo Kotlin ..</Text>
+
+      <Text>========================</Text>
+      <Text>========================</Text>
+
+      <Button 
+        onPress={handleButton}
+              title="Vai merda"
+      />
+
       <StatusBar style="auto" />
     </View>
   );
